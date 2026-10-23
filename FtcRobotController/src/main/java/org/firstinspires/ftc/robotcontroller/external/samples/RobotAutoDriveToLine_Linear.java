@@ -65,8 +65,10 @@ import com.qualcomm.robotcore.hardware.SwitchableLight;
 public class RobotAutoDriveToLine_Linear extends LinearOpMode {
 
     /* Declare OpMode members. */
-    private DcMotor         leftDrive   = null;
-    private DcMotor         rightDrive  = null;
+    private DcMotor         leftFrontDrive   = null;
+    private DcMotor         rightFrontDrive = null;
+    private DcMotor         leftBackDrive = null;
+    private DcMotor         rightBackDrive  = null;
 
     /** The variable to store a reference to our color sensor hardware object */
     NormalizedColorSensor colorSensor;
@@ -78,14 +80,17 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
     public void runOpMode() {
 
         // Initialize the drive system variables.
-        leftDrive  = hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_drive_front");
+        rightFrontDrive = hardwareMap.get(DcMotor.class, "right_drive_front");
+        leftBackDrive  = hardwareMap.get(DcMotor.class, "left_drive_back");
+        rightBackDrive = hardwareMap.get(DcMotor.class, "right_drive_back");
+
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        //leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
+        //rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
 
         // If there are encoders connected, switch to RUN_USING_ENCODER mode for greater accuracy
         // leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -118,8 +123,8 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
         }
 
         // Start the robot moving forward, and then begin looking for a white line.
-        leftDrive.setPower(APPROACH_SPEED);
-        rightDrive.setPower(APPROACH_SPEED);
+        //leftDrive.setPower(APPROACH_SPEED);
+        //rightDrive.setPower(APPROACH_SPEED);
 
         // run until the white line is seen OR the driver presses STOP;
         while (opModeIsActive() && (getBrightness() < WHITE_THRESHOLD)) {
@@ -127,8 +132,8 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
         }
 
         // Stop all motors
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
+        //leftDrive.setPower(0);
+        //rightDrive.setPower(0);
     }
 
     // to obtain reflected light, read the normalized values from the color sensor.  Return the Alpha channel.
