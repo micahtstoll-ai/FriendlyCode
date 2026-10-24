@@ -24,8 +24,8 @@ public class Constants {
         c.backLeftName.set("lb");
         c.backRightName.set("rb");
         c.frontLeftDirection.set(DcMotorSimple.Direction.REVERSE);
-        c.frontRightDirection.set(DcMotorSimple.Direction.REVERSE);
-        c.backLeftDirection.set(DcMotorSimple.Direction.REVERSE);
+        c.frontRightDirection.set(DcMotorSimple.Direction.FORWARD);
+        c.backLeftDirection.set(DcMotorSimple.Direction.FORWARD);
         c.backRightDirection.set(DcMotorSimple.Direction.FORWARD);
         //c.manualBrakeMode.set(true);
     });
