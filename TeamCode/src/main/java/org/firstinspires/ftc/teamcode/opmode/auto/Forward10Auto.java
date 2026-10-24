@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.auto;
 
 import static com.pedropathing.api.Paths.line;
 
+import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.Follower;
 import com.pedropathing.math.Pose;
 import com.pedropathing.paths.Path;
@@ -35,9 +36,11 @@ public class Forward10Auto extends LinearOpMode {
             telemetry.update();
         }
 
-        // Hold the end position until the OpMode is stopped.
-        follower.hold(endPose);
+        // Stop the drive instead of holding: hold(endPose) overshot back and
+        // oscillated on the robot. Zero manual power, same calls PedroTeleop uses.
+        DrivePowers stop = new DrivePowers(0, 0, 0);
         while (opModeIsActive()) {
+            follower.manual(stop);
             follower.update();
             telemetry.addData("Pose", follower.pose());
             telemetry.update();
