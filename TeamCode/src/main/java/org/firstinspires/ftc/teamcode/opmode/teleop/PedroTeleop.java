@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
 import com.pedropathing.follower.Follower;
+import com.pedropathing.math.Pose;
 import com.pedropathing.math.Vector2D;
 import com.pedropathing.utils.Angle;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -32,6 +33,9 @@ public class PedroTeleop extends OpMode {
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
+        // The Pinpoint keeps its pose between OpModes, so a stale heading from the last run
+        // would skew field-centric from the first loop. Start at zero with the robot facing away.
+        follower.setPose(new Pose(0, 0, 0));
         intake = hardwareMap.get(DcMotor.class, "intake");
         index = hardwareMap.get(DcMotor.class, "index");
         launch = hardwareMap.get(DcMotor.class, "launch");
@@ -84,6 +88,8 @@ public class PedroTeleop extends OpMode {
 
         follower.manual(powers);
 
+        telemetry.addData("X (in)", follower.pose().x());
+        telemetry.addData("Y (in)", follower.pose().y());
         telemetry.addData("Heading (deg)", Math.toDegrees(heading));
         telemetry.addData("Held heading (deg)", heldHeading == null ? "none" : Math.toDegrees(heldHeading));
         telemetry.update();
