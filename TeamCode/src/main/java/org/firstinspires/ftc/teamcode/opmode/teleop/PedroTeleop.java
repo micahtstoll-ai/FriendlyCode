@@ -29,9 +29,13 @@ public class PedroTeleop extends OpMode {
 
     @Override
     public void loop() {
+        // Left stick rotated 90 degrees counter-clockwise: stick up drives left,
+        // stick right drives forward. (Gamepad y is positive DOWN, hence the signs.)
+        double leftStickX = gamepad1.left_stick_y;
+        double leftStickY = -gamepad1.left_stick_x;
         DrivePowers powers = ManualDrive.fieldCentric(
-                -gamepad1.left_stick_y,
-                gamepad1.left_stick_x,
+                -leftStickY,
+                leftStickX,
                 gamepad1.right_stick_x,
                 follower.pose().heading()
         );
